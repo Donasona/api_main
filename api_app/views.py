@@ -8,7 +8,8 @@ from api_app.models import *
 from api_app.serializers import UserregisterSerializer,Productserializer
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
 # Create your views here.
 class UserregisterView(APIView):
 
@@ -36,9 +37,18 @@ class Loginview(APIView):
 
         user = request.user
 
-        token,created = Token.objects.get_or_create(user=user)
+        refresh = RefreshToken.for_user(user)
+
+        # token,created = Token.objects.get_or_create(user=user)
         
-        return Response({"message":"login success","token":token.key},status=status.HTTP_200_OK)
+        return Response({"message":"login success",
+                         "access":str(refresh.access_token),
+                         "refresh":str(refresh)
+                        },                         
+                        status=status.HTTP_200_OK
+                        )
+
+                        #  "token":token.key},
 
         # print(user.username)
         
