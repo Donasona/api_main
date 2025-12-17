@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api_app.views import *
+from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('add/',Productaddlistview.as_view()),
     path('retrieve/<int:pk>',ProductRetrieveUpdateDelete.as_view()),
     path('products/filter/',Productfilterbycolorview.as_view()),
+    path('refresh/',TokenRefreshView.as_view()),
 ]
