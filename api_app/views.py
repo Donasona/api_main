@@ -142,6 +142,6 @@ class Productfilterbycolorview(APIView):
 
         serializer = Productserializer(data,many = True)
 
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        # return Response(serializer.data,status=status.HTTP_200_OK)
 
 
